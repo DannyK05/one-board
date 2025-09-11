@@ -15,11 +15,13 @@ export default function AuthLayout({ children }: AuthLayoutTypeProps) {
         justifyContent: "end",
       }}
     >
-      <div className="h-full rounded-2xl flex items-center space-y-8 flex-col shadow-xl py-4 px-2 w-2/5 bg-white">
-        <h1 className="text-4xl">
-          <span className="font-semibold text-[#A3D95D]">One</span>board
-        </h1>
-
+      <div className="h-full rounded-2xl flex items-center space-y-4 flex-col shadow-xl py-4 px-2 w-2/5 bg-white">
+        <img
+          src="/assets/images/logo.png"
+          width={200}
+          height={200}
+          alt="Logo"
+        />
         {children}
       </div>
     </div>

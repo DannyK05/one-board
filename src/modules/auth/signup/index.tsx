@@ -2,13 +2,13 @@ import AuthLayout from "../../../components/AuthLayout";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 
-export default function LoginPage() {
+export default function SignupPage() {
   return (
     <AuthLayout>
       <div className="flex items-center flex-col  justify-center h-full">
         <form className="flex items-center w-full space-y-4 flex-col">
           <h2 className="text-4xl text-start font-semibold">
-            <span>Login into</span>
+            <span>Create</span>
             <br />
             <span>your account.</span>
           </h2>
@@ -31,7 +31,7 @@ export default function LoginPage() {
             type="submit"
             className="bg-[#A3D95D] shadow-md text-white py-4 w-60 font-semibold rounded-2xl"
           >
-            Login
+            Sign up
           </Button>
         </form>
 
@@ -39,13 +39,13 @@ export default function LoginPage() {
           type="button"
           className="border rounded-xl bg-white my-4 py-2 px-3"
         >
-          Continue with Google
+          Sign up with Google
         </button>
 
         <p>
-          Don't have an account ?
+          Have an account ?{" "}
           <span className="cursor-pointer hover:underline font-semibold text-[#A3D95D]">
-            Sign up
+            Login
           </span>
         </p>
       </div>

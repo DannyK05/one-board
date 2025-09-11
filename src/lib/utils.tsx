@@ -1,10 +1,5 @@
 import { ClassNameValue, twMerge } from "tailwind-merge";
 
-type cnProps = {
-  newClass: ClassNameValue;
-  initialClass: ClassNameValue;
-};
-
-export function cn({ newClass, initialClass }: cnProps) {
+export function cn(newClass: ClassNameValue, initialClass: ClassNameValue) {
   return twMerge(newClass, initialClass);
 }

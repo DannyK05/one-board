@@ -1,8 +1,7 @@
 import { ReactNode } from "react";
+import { Outlet } from "react-router";
 
-type AuthLayoutTypeProps = { children: ReactNode };
-
-export default function AuthLayout({ children }: AuthLayoutTypeProps) {
+export default function AuthLayout() {
   return (
     <div
       style={{
@@ -22,7 +21,7 @@ export default function AuthLayout({ children }: AuthLayoutTypeProps) {
           height={200}
           alt="Logo"
         />
-        {children}
+        <Outlet />
       </div>
     </div>
   );

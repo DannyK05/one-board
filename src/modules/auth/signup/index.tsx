@@ -1,11 +1,36 @@
 import { Link } from "react-router";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
+import { useCreateUserMutation } from "../../../codegen/hooks";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { email } from "zod";
+
+type InputValues = {
+  email: string;
+  password: string;
+};
 
 export default function SignupPage() {
+  const { register, handleSubmit, formState } = useForm<InputValues>();
+  const [createUser, { data, isLoading }] = useCreateUserMutation();
+
+  const handleSignUp: SubmitHandler<InputValues> = async (formValues) => {
+    try {
+      const response = await createUser({
+        data: { email: formValues.email, password: formValues.password },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex items-center flex-col  justify-center h-full">
-      <form className="flex items-center w-full space-y-4 flex-col">
+      <form
+        onSubmit={handleSubmit(handleSignUp)}
+        className="flex items-center w-full space-y-4 flex-col"
+      >
         <h2 className="text-4xl text-start font-semibold">
           <span>Create</span>
           <br />
@@ -15,15 +40,15 @@ export default function SignupPage() {
         <Input
           className="w-60 py-2 rounded-2xl border px-3"
           type="email"
-          name="userMail"
           placeholder="johndoe@email.com"
+          {...register("email")}
         />
 
         <Input
           className="w-60 py-2 rounded-2xl border px-3"
           type="password"
-          name="userPassword"
           placeholder="Password"
+          {...register("password")}
         />
 
         <Button

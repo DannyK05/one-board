@@ -1,7 +1,11 @@
 mutation CreateUser($email: EmailAddress!, $password: String!) {
   createUser(data: { email: $email, password: $password }) {
-    id
-    email
-    avatar
+    accessToken
+    refreshToken
+    user {
+      id
+      email
+      avatar
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { cn } from "../lib/utils";
 
 type InputTypeProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  className: string;
+  className?: string;
   type: "text" | "number" | "email" | "password";
 };
 

@@ -17302,7 +17302,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "User",
+                "name": "AuthPayload",
                 "ofType": null
               }
             },

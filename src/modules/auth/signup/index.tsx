@@ -1,9 +1,11 @@
 import { Link } from "react-router";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
-import { useCreateUserMutation } from "../../../codegen/hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { email } from "zod";
+import { useMutation } from "@apollo/client/react";
+import { CreateUserDocument } from "../../../codegen/graphql";
+import PasswordInput from "../../../components/PasswordInput";
 
 type InputValues = {
   email: string;
@@ -11,13 +13,13 @@ type InputValues = {
 };
 
 export default function SignupPage() {
-  const { register, handleSubmit, formState } = useForm<InputValues>();
-  const [createUser, { data, isLoading }] = useCreateUserMutation();
+  const { register, handleSubmit } = useForm<InputValues>();
+  const [createUser, { loading, error }] = useMutation(CreateUserDocument);
 
   const handleSignUp: SubmitHandler<InputValues> = async (formValues) => {
     try {
       const response = await createUser({
-        data: { email: formValues.email, password: formValues.password },
+        variables: { email: formValues.email, password: formValues.password },
       });
       console.log(response);
     } catch (error) {
@@ -38,24 +40,18 @@ export default function SignupPage() {
         </h2>
 
         <Input
-          className="w-60 py-2 rounded-2xl border px-3"
           type="email"
           placeholder="johndoe@email.com"
           {...register("email")}
         />
 
-        <Input
-          className="w-60 py-2 rounded-2xl border px-3"
-          type="password"
-          placeholder="Password"
-          {...register("password")}
-        />
+        <PasswordInput {...register("password")} />
 
         <Button
           type="submit"
           className="bg-[#A3D95D] shadow-md text-white py-4 w-60 font-semibold rounded-2xl"
         >
-          Sign up
+          {loading ? "Loading..." : "Sign up"}
         </Button>
       </form>
 

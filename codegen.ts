@@ -14,19 +14,8 @@ const config: CodegenConfig = {
   schema: apiUrl,
   documents: "src/**/*.graphql",
   generates: {
-    "src/codegen/hooks.tsx": {
-      plugins: [
-        "typescript",
-        "typescript-operations",
-        "typescript-react-apollo",
-      ],
-      config: {
-        withHooks: true,
-        reactApolloVersion: 4,
-        apolloReactHooksImportFrom: "@apollo/client",
-        withHOC: false,
-        withComponent: false,
-      },
+    "src/codegen/graphql.ts": {
+      plugins: ["typescript", "typescript-operations", "typed-document-node"],
     },
     "./graphql.schema.json": {
       plugins: ["introspection"],

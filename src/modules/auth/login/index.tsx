@@ -1,11 +1,37 @@
 import { Link } from "react-router";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
+import PasswordInput from "../../../components/PasswordInput";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "@apollo/client/react";
+import { LoginDocument } from "../../../codegen/graphql";
+
+type InputValues = {
+  email: string;
+  password: string;
+};
 
 export default function LoginPage() {
+  const [login, { loading, error }] = useMutation(LoginDocument);
+  const { register, handleSubmit } = useForm<InputValues>();
+
+  const handleSignUp: SubmitHandler<InputValues> = async (formValues) => {
+    try {
+      const response = await login({
+        variables: { email: formValues.email, password: formValues.password },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex items-center flex-col  justify-center h-full">
-      <form className="flex items-center w-full space-y-4 flex-col">
+      <form
+        onSubmit={handleSubmit(handleSignUp)}
+        className="flex items-center w-full space-y-4 flex-col"
+      >
         <h2 className="text-4xl text-start font-semibold">
           <span>Login into</span>
           <br />
@@ -13,24 +39,19 @@ export default function LoginPage() {
         </h2>
 
         <Input
-          className="w-60 py-2 rounded-2xl border px-3"
           type="email"
-          name="userMail"
           placeholder="johndoe@email.com"
+          {...register("email")}
         />
 
-        <Input
-          className="w-60 py-2 rounded-2xl border px-3"
-          type="password"
-          name="userPassword"
-          placeholder="Password"
-        />
+        <PasswordInput {...register("password")} />
 
         <Button
           type="submit"
           className="bg-[#A3D95D] shadow-md text-white py-4 w-60 font-semibold rounded-2xl"
+          disabled={loading}
         >
-          Login
+          {loading ? "Loading..." : "Login"}
         </Button>
       </form>
 
